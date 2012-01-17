@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<head>
+</head>
+<html>
+	<script src="/socket.io/socket.io.js"></script>
+	<script type="text/javascript">
+		var socket = io.connect('192.168.150.131');
+		console.log("client socket.io version: " +io.version);
+		socket.on('news',function(data){
+						console.log("2.received data: "+ data);
+						console.log("3.sending back this data to server..");
+						socket.emit('my other event',{my:'data'});
+						});
+	</script>	
+</html>

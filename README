@@ -1,0 +1,17 @@
+
+this is a nodejs learning tutorial about nodejs,express and websocket.
+
+I used this to test nodejs and some notice could be shown.
+
+before you can run this demo,you must add the modules using command follow
+1.npm install express(v2.5.5)
+2.npm install socket.io(v.0.8.7)
+3.node ./index.js
+
+
+notice
+1.client js socket.io.js -- don't use js from cdn ,it may expire
+
+
+email
+624906158@qq.com
