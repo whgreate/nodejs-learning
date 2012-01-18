@@ -1,17 +1,20 @@
+该代码主要为了学习nodejs，express，jade，socket.io而用，主要参考https://github.com/auzll/nodechat，由于和作者使用的各个模块版本有出入，有些地方进行了修改
 
-this is a nodejs learning tutorial about nodejs,express and websocket.
+运行
+要运行代码，要执行以下命令下载模块，注意后面的版本，版本不一样api接口可能有变，不能保证在其他版本下能够运行
+1.npm install express //(v2.5.5)
+  npm install socket.io  //(v.0.8.7)
+  npm install jade //(v0.20)
+2.node ./index.js
 
-I used this to test nodejs and some notice could be shown.
+注意事项
+1.客户端的socket.io.js不要使用cdn上的，最好对应npm install socket.io的版本
 
-before you can run this demo,you must add the modules using command follow
-1.npm install express(v2.5.5)
-2.npm install socket.io(v.0.8.7)
-3.node ./index.js
-
-
-notice
-1.client js socket.io.js -- don't use js from cdn ,it may expire
+存在问题
+1.浏览器网址栏要输入localhost时，进入/chat时服务器才不会出问题，而输入ip时服务器会出中断退出，主要原因来自index js中的io.set('authorization'...,不知为何...
 
 
-email
+联系方式 
 624906158@qq.com
+or
+https://github.com/whgreate
