@@ -1,11 +1,17 @@
-该代码主要为了学习nodejs，express，jade，socket.io而用，主要参考https://github.com/auzll/nodechat，由于和作者使用的各个模块版本有出入，有些地方进行了修改
+该代码主要为了学习nodejs下express，jade，socket.io，mongodb等模块而用，主要参考https://github.com/auzll/nodechat，由于和作者使用的各个模块版本有出入，有些地方进行了修改
 
 运行
 要运行代码，要执行以下命令下载模块，注意后面的版本，版本不一样api接口可能有变，不能保证在其他版本下能够运行
-1.npm install express //(v2.5.5)
+1.下载模块
+  npm install express //(v2.5.5)
   npm install socket.io  //(v.0.8.7)
   npm install jade //(v0.20)
-2.node ./index.js
+  npm install mongodb //(v.0.9.5)
+2.建立mongo数据库
+  use test;//
+  db.products.save({name:'pizza'}); //...(多插入一些数据保证测试要求)
+3.运行服务器
+  node ./index.js
 
 注意事项
 1.客户端的socket.io.js不要使用cdn上的，最好对应npm install socket.io的版本
