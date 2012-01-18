@@ -10,6 +10,8 @@ var parseCookie = require('connect').utils.parseCookie,
 var storeMemory = new MemoryStore({
 			reapInterval: 60000 * 10  //ten minutes
 		});
+var events = require('events'),
+	mongo = require('mongodb');
 
 app.configure(function(){
 		app.use(express.bodyParser());
@@ -78,6 +80,56 @@ app.post('/chat', function(req,res){
 	else{
 		res.end('nickname can\'t be null');
 	}
+});
+
+app.get('/mongodb', function(req,res){
+	var products_emitter = new events.EventEmitter(),
+      // 创建到test数据库的链接,相当于use test
+    db = new mongo.Db("test", new mongo.Server('localhost', 27017, {}), {});	
+	var listener = function(products){
+		var html = [], len = products.length;
+     	html.push('<!DOCTYPE html>');
+      	html.push('<html>');
+      	html.push('<head>');
+     	html.push('<title>Nodejs</title>');
+      	html.push('</head>');
+     	html.push('<body>');
+      	if(len > 0) {
+        	html.push('<ul>');
+        	for(var i = 0; i < len; i++) {
+          		html.push('<li>' + products[i].name + '</li>');
+        	}
+        	html.push('</ul>');
+      	}
+      	html.push('</body>');
+      	html.push('</html>');
+ 
+      	res.writeHead(200, "Content-Type: text/html");
+     	res.write(html.join(''));
+		res.end();
+		
+		
+		clearTimeout(timeout);
+	};	
+
+	products_emitter.on('products',listener);
+	
+	//10s若还没有取到数据，则显示空
+	var timeout = setTimeout(function() {
+		products_emitter.emit('products', []);
+		products_emitter.removeListener('products', listener);
+	}, 10000);
+
+	db.open(function(){
+		db.collection('products',function(err, collection){
+			collection.find(function(err, cursor){
+				cursor.toArray(function(err, items){
+					console.log('---'+items);
+					products_emitter.emit('products', items);
+				});
+			});
+		});
+	});
 });
 
 var usersWS = {};
